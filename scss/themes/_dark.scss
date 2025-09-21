@@ -1,0 +1,48 @@
+// Body:
+html.dark {
+    // *:
+    --bg-box: #273142;
+    --bg-box-ver2: #323d4e;
+    --border-box: #313d4f;
+    --box-shadow-modal: rgba(35, 35, 35, 0.15);
+
+    // Body:
+    --bg-body: #1b2431;
+    --text-color: #fff;
+
+    // Chung:
+    --separator: var(--border-box);
+
+    // Sidebar:
+    --bg-sidebar: var(--bg-box);
+
+    // Icon:
+    .icon {
+        filter: var(--filter-white);
+    }
+
+    // Form:
+    --border-search: var(--border-box);
+
+    // Filter:
+    --bg-filter: var(--bg-box);
+    --border-filter: var(--border-box);
+
+    // Table:
+    --table-thead: var(--bg-box-ver2);
+    --table-tr: var(--bg-filter);
+    --table-tr-even: var(--bg-filter);
+    --table-border: var(--border-filter);
+
+    // Dropdown:
+    --bg-dropdown: var(--bg-box);
+
+    // Card item:
+    --bg-card-item: var(--bg-filter);
+
+    // Bg Gradient:
+    --bg-gradient: "";
+
+    // Bg Copied:
+    --bg-copied: var(--bg-box-ver2);
+}

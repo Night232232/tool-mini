@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>URL Checker</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            .result {
+                margin-top: 20px;
+            }
+            .error {
+                color: red;
+            }
+            .success {
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>URL Checker</h1>
+        <input type="text" id="url-input" placeholder="Enter URL" style="width: 80%" />
+        <button id="check-btn">Check URL</button>
+        <div class="result" id="result"></div>
+
+        <script>
+            document.getElementById("check-btn").addEventListener("click", () => {
+                const url = document.getElementById("url-input").value;
+                const resultDiv = document.getElementById("result");
+
+                if (!url) {
+                    resultDiv.innerHTML = "<p class='error'>Please enter a valid URL.</p>";
+                    return;
+                }
+
+                fetch(url, { method: "HEAD" }) // Use 'HEAD' to avoid fetching the full content
+                    .then((response) => {
+                        if (response.ok) {
+                            resultDiv.innerHTML = `<p class='success'>The URL is active: ${response.url}</p>`;
+                        } else if (response.status >= 300 && response.status < 400) {
+                            resultDiv.innerHTML = `<p class='success'>The URL is redirected to: ${response.headers.get(
+                                "location"
+                            )}</p>`;
+                        } else if (response.status >= 400 && response.status < 500) {
+                            resultDiv.innerHTML = `<p class='error'>The URL is not accessible. Status: ${response.status}</p>`;
+                        } else {
+                            resultDiv.innerHTML = `<p class='error'>Unexpected response. Status: ${response.status}</p>`;
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error checking URL:", error);
+                        resultDiv.innerHTML = `<p class='error'>Unable to access the URL. It might be blocked or invalid.</p>`;
+                    });
+            });
+        </script>
+    </body>
+</html>

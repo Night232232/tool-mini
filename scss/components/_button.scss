@@ -1,0 +1,83 @@
+@use "../utils";
+
+.menu-toggle {
+    &__icon {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+//BUTTONS
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    --bg-primary-button: var(--color-primary);
+
+    height: 44px;
+    border-radius: 8px;
+    padding: 0 18px;
+
+    @include utils.screen(sm) {
+        height: 32px;
+    }
+
+    background: var(--bg-primary-button);
+    font-weight: 500;
+    line-height: 150%;
+
+    white-space: nowrap;
+    user-select: none;
+
+    &--medium {
+        height: 30px;
+    }
+
+    &--small {
+        height: 25px;
+    }
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    & + & {
+        &:not(.btn--no-margin) {
+            margin-left: 20px;
+        }
+    }
+
+    &--text {
+        background: transparent;
+        font-weight: 400;
+    }
+
+    &--primary {
+        background: var(--bg-primary-button);
+        color: #fafafa;
+    }
+
+    &--outline {
+        border: 1px solid #d5d7da;
+        color: #414651;
+        background: transparent;
+    }
+
+    &--rounded {
+        background: var(--bg-primary-button);
+        border-radius: 99px;
+    }
+
+    &--danger {
+        color: #fff;
+        background: #ed4337;
+    }
+
+    &[disable],
+    &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}

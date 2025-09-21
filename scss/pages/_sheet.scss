@@ -1,0 +1,249 @@
+@use "../utils";
+
+.tab-page {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    // margin-bottom: 20px;
+
+    &__item {
+        padding: 3px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--color-primary);
+
+        &.tab-page__item--active {
+            color: #fafafa;
+            background: var(--color-primary);
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-report__item.copied {
+    background-color: var(--table-tr); /* Màu nền xanh nhạt */
+    border-left: 5px solid var(--color-primary); /* Viền xanh bên trái để làm nổi bật */
+}
+
+.text-report__item .text-report__item-copy {
+    border: none;
+    border-radius: 7px;
+    padding: 5px 8px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+// .text-report__item .text-report__item-copy:hover {
+//     background-color: #fff3e9; /* Màu nền khi hover */
+// }
+
+/* Tạo kiểu cho toàn bộ thanh cuộn */
+.text-report,
+.dataTable {
+    scrollbar-width: thin; /* Cũng áp dụng cho Firefox */
+    scrollbar-color: rgba(200, 200, 200, 0.39) rgba(75, 75, 75, 0.39); /* Màu cuộn và nền thanh cuộn */
+}
+
+.text-report::-webkit-scrollbar,
+.dataTable::-webkit-scrollbar {
+    width: 6px; /* Chiều rộng thanh cuộn dọc */
+    height: 12px; /* Chiều cao thanh cuộn ngang */
+}
+
+/* Màu nền thanh cuộn */
+.text-report::-webkit-scrollbar-track,
+.dataTable::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+/* Màu và kiểu cho thanh cuộn */
+.text-report::-webkit-scrollbar-thumb,
+.dataTable::-webkit-scrollbar-thumb {
+    background-color: rgba(200, 200, 200, 0.39); /* Màu thanh cuộn */
+    border-radius: 10px; /* Bo góc */
+    border: 3px solid #f0f0f0; /* Viền xung quanh thanh cuộn */
+}
+
+.text-report {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 10px;
+    width: 100%;
+    height: 600px;
+    overflow: auto;
+    overscroll-behavior: contain;
+
+    &__item {
+        padding: 12px 20px;
+        background: var(--bg-filter);
+        border-left: 5px solid var(--bg-filter);
+        // box-shadow: inset 0px 10px 54px -6px rgba(0, 0, 0, 0.1);
+        border: 0.6px solid var(--color-primary);
+        border-radius: 10px;
+
+        &--title {
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+    }
+
+    &__input-key {
+        border: 1px solid var(--table-border);
+        border-radius: 10px;
+        height: 30px;
+        padding: 0 10px;
+        margin-bottom: 10px;
+    }
+
+    &__item-back {
+        margin-left: auto;
+    }
+}
+
+.dataTable {
+    height: 600px;
+    border-radius: 10px;
+    overflow: auto;
+    overscroll-behavior: contain;
+    font-size: 1.2rem;
+
+    border-collapse: collapse;
+    table-layout: auto;
+
+    /* Lớp mở rộng bảng khi cần thiết */
+    &.expanded {
+        height: auto; /* Đặt chiều cao tự động để không có thanh cuộn */
+        overflow: visible; /* Tắt thanh cuộn */
+        width: auto; /* Tự động điều chỉnh chiều rộng để chứa nội dung */
+        max-width: none; /* Bỏ giới hạn chiều rộng nếu có */
+    }
+
+    & th,
+    & td {
+        padding: 3px 7px;
+        text-align: left;
+        // border-bottom: 1px solid #ccc;
+
+        border: 0.6px solid var(--table-border);
+        vertical-align: middle;
+        line-height: 1.5;
+
+        white-space: nowrap;
+
+        @include utils.screen(md) {
+            white-space: wrap;
+        }
+    }
+
+    & th {
+        background-color: var(--table-thead);
+        // background-color: #16a085;
+        color: #fafafa;
+        font-weight: 600;
+    }
+
+    & tr {
+        background: var(--table-tr);
+        // background: #e8f6f3;
+        transition: background 0.25s;
+
+        &:nth-child(even) {
+            background: var(--table-tr-even);
+            // background: #e8f6f3;
+        }
+    }
+
+    & th:nth-child(3),
+    & th:nth-child(4),
+    & th:nth-child(5),
+    & th:nth-child(6),
+    & th:nth-child(7),
+    & th:nth-child(8),
+    & th:nth-child(9),
+    & td:nth-child(3),
+    & td:nth-child(4),
+    & td:nth-child(5),
+    & td:nth-child(6),
+    & td:nth-child(7),
+    & td:nth-child(8),
+    & td:nth-child(9) {
+        text-align: center;
+    }
+
+    // & th:nth-child(6),
+    // & td:nth-child(6) {
+    //     letter-spacing: -1px;
+    // }
+}
+
+.child-of-td {
+    &.done,
+    &.doing,
+    &.user-1,
+    &.user-2,
+    &.voice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        border-radius: 4.5px;
+        color: #fff;
+        max-width: 120px;
+        min-height: 22px;
+        padding: 3px;
+        // white-space: wrap;
+    }
+
+    &.width-custom {
+        width: 100px; /* Đặt chiều rộng tối đa cho phần tử (hoặc có thể thay đổi chiều rộng sao cho phù hợp với bạn) */
+        white-space: nowrap; /* Ngăn không cho văn bản xuống dòng */
+        overflow: hidden; /* Ẩn phần văn bản bị tràn ra ngoài */
+        text-overflow: ellipsis; /* Thêm dấu ba chấm "..." ở cuối nếu văn bản bị cắt */
+        display: inline-block; /* Đảm bảo phần tử là khối nội tuyến hoặc khối */
+    }
+
+    &.done {
+        background: #00b69b;
+    }
+
+    &.doing {
+        background: #6226ef;
+    }
+
+    &.user-1 {
+        background: #ffa756;
+    }
+
+    &.user-2 {
+        background: #ba29ff;
+    }
+
+    &.voice {
+        background: #ef3826;
+    }
+}

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Google Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet" />
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="./assets/css/main.css" />
+
+        <!-- JS -->
+        <script src="./assets/js/main.js"></script>
+
+        <!-- Flatpickr CSS -->
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css" />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg" />
+        <link rel="shortcut icon" href="./assets/favicon/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+
+        <!-- Flatpickr JS -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        <!-- Thư Viện Chụp Màn Hình -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <title>Tool Mini</title>
+    </head>
+    <body>
+        <div class="wrap-container">
+            <main class="main">
+                <div id="sidebar" class="sidebar hidden"></div>
+                <script>
+                    load("#sidebar", "./templates/sidebar.html");
+                </script>
+                <div class="content">
+                    <header id="header" class="header"></header>
+                    <script>
+                        load("#header", "./templates/header.html");
+                    </script>
+                    <div class="container">
+                        <div class="content__row">
+                            <h2 class="content__title">API Sheet</h2>
+                            <button class="btn btn-primary add-sheet">
+                                <img src="./assets/images/add.svg" alt="" class="add-sheet__icon" />
+                                <span class="add-sheet__text">Add Sheet</span>
+                            </button>
+                            <!-- Modal Input Sheet Key API -->
+                            <div id="inputSheetModal" class="modal__box" style="display: none">
+                                <div class="modal__content">
+                                    <h2 class="modal__title">Thông tin nguồn API</h2>
+                                    <div class="modal__col">
+                                        <input
+                                            class="modal__input"
+                                            type="text"
+                                            id="code-sheetid"
+                                            placeholder="Nhập Sheet ID" />
+                                        <input
+                                            class="modal__input"
+                                            type="text"
+                                            id="code-apikey"
+                                            placeholder="Nhập Api Key" />
+                                        <input
+                                            class="modal__input"
+                                            type="text"
+                                            id="rangeApi"
+                                            placeholder="Nhập Khu Vực Sheet" />
+                                    </div>
+                                    <span class="modal__message-sheet"></span>
+                                    <button id="save-ApiSheet" class="btn btn--primary modal__btn-fetch">Save</button>
+                                    <button id="modalInputSheetClose" class="modal__close">
+                                        <img src="./assets/images/cross.svg" alt="" class="icon" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Filter Modal -->
+                        <div class="report-modal">
+                            <div class="report-modal__inner">
+                                <div class="report-modal__row">
+                                    <h3 class="report-modal__title">Nhập Text Report Output</h3>
+                                    <button id="modalReportClose" class="modal__close">
+                                        <span class="report-modal__icon">
+                                            <img src="./assets/images/cross.svg" alt="" class="icon" />
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <!-- Filter Content -->
+                                <div class="filter">
+                                    <div class="row">
+                                        <div class="col-4 col-sm-12">
+                                            <h3 class="filter__title">Cú pháp Link</h3>
+                                            <textarea
+                                                id="reportTextAreaOutput"
+                                                class="report-modal__textarea"
+                                                placeholder="Nhập mẫu văn bản..."></textarea>
+                                        </div>
+                                        <div class="col-4 col-sm-12">
+                                            <h3 class="filter__title">Cú pháp Dashboard</h3>
+                                            <textarea
+                                                id="summaryTemplate"
+                                                class="report-modal__textarea"
+                                                placeholder="Nhập mẫu văn bản..."></textarea>
+                                        </div>
+                                        <div class="col-4 col-sm-12">
+                                            <h3 class="filter__title">Cú pháp Text Send</h3>
+                                            <textarea
+                                                id="textSend"
+                                                class="report-modal__textarea"
+                                                placeholder="Nhập mẫu văn bản..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-show">
+                            <div class="filter-show__list">
+                                <div class="filter-show__item">
+                                    <button id="refresh-btn" class="filter-show__row">
+                                        <img src="./assets/images/refresh.svg" class="icon" alt="" />
+                                        <span class="filter-show__text">Refresh Data</span>
+                                    </button>
+                                </div>
+                                <div class="filter-show__item">
+                                    <button id="openModal-report" class="filter-show__row">
+                                        <img src="./assets/images/add.svg" class="icon" alt="" />
+                                    </button>
+                                </div>
+                                <div class="filter-show__item">
+                                    <input
+                                        type="number"
+                                        id="columnLimit"
+                                        class="filter-show__column-num"
+                                        placeholder="Nhập số cột tối thiểu"
+                                        value="9" />
+                                    <button id="applyColumnLimit" class="filter-show__text">
+                                        <img src="./assets/images/eye.svg" class="icon" alt="" />
+                                    </button>
+                                </div>
+
+                                <div class="filter-show__item">
+                                    <input
+                                        type="number"
+                                        id="scaleInput"
+                                        class="filter-show__column-num"
+                                        value="3"
+                                        min="1"
+                                        max="10"
+                                        step="1" />
+                                    <button id="screenshot-btn">
+                                        <img src="./assets/images/fullscreen.svg" class="icon" alt="" />
+                                    </button>
+                                </div>
+                                <!-- <div class="filter-show__item">
+                                    <button id="reset-filter-btn" class="filter-show__row">
+                                        <img src="./assets/images/replay.svg" alt="" />
+                                        <span class="filter-show__text filter-show__reset-filter">Reset Filter</span>
+                                    </button>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="wrap-noti">
+                            <div id="loading" style="display: none" class="wrap-noti__text">Đang tải...</div>
+                            <div id="notification" style="display: none" class="wrap-noti__text">
+                                Dữ liệu đã được làm mới!
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3 col-xl-12">
+                                <div class="dashboard">
+                                    <!-- Nhận dữ liệu Dashboard -->
+                                </div>
+                            </div>
+                            <div class="col-9 col-xl-12">
+                                <div class="text-send">
+                                    <!-- Nhận dữ liệu Text Send -->
+                                    <!-- <div class="text-send__item">
+                                        <div class="text-send__info">
+                                            <span class="text-send__title"> ERIC - 00:30 - 27/11/24</span>
+                                        </div>
+                                        <button class="text-send__btn">
+                                            <img src="./assets/images/copy.svg" alt="" class="icon" />
+                                        </button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard__ctrl">
+                            <!-- Khu vực chọn tab theo ngày -->
+                            <div class="tab-page">
+                                <button id="prevDate" class="tab-page__item">Prev</button>
+                                <button id="filterByDayWork" class="tab-page__item">Today</button>
+                                <button id="nextDate" class="tab-page__item">Next</button>
+                            </div>
+                            <button class="back-copy">Back</button>
+                        </div>
+                        <!-- Nơi hiển thị Table Result -->
+                        <div class="row gx-3 gy-lg-2">
+                            <div class="col-9 col-lg-12">
+                                <div id="data-container" class="dataTable"></div>
+                            </div>
+                            <div class="col-3 col-lg-12">
+                                <div class="text-report">
+                                    <!-- Nhận dữ liệu Report -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Khu vực Text Report -->
+                        <div class="report">
+                            <div class="report__inner">
+                                <div class="row row-cols-2 row-cols-md-1 gy-md-2">
+                                    <div class="col">
+                                        <!-- Input Source -->
+                                        <div class="report__input">
+                                            <div>
+                                                <label for="specificCell">Nhập ô (VD: Sheet1!A1):</label>
+                                                <input
+                                                    type="text"
+                                                    id="specificCell"
+                                                    placeholder="VD: Sheet1!A1"
+                                                    value="REPORT!I4" />
+                                            </div>
+                                            <button id="fetchCellData" class="btn btn--medium">Lấy dữ liệu ô</button>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!-- Result Text -->
+                                        <div class="report__output">
+                                            <div class="report__ctrl">
+                                                <!-- Hiển thị Đã Copy -->
+                                                <span class="report__noti">Đã Copy</span>
+                                                <button class="report__output--copy">
+                                                    <img src="./assets/images/copy.svg" alt="" class="icon" />
+                                                </button>
+                                                <div
+                                                    id="outputCellData"
+                                                    contenteditable="true"
+                                                    class="report__output-text"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="./assets/js/menu.js"></script>
+        <script type="module" src="./assets/js/sheet.js"></script>
+    </body>
+</html>

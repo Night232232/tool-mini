@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/main.css" />
+
+    <!-- JS -->
+    <script src="./assets/js/main.js"></script>
+
+    <!-- Flatpickr CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/favicon/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Thư Viện Chụp Màn Hình -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>Tool Mini - Screen</title>
+  </head>
+  <body>
+    <div class="wrap-container">
+      <main class="main">
+        <div id="sidebar" class="sidebar hidden"></div>
+        <script>
+          load("#sidebar", "./templates/sidebar.html");
+        </script>
+        <div class="content">
+          <header id="header" class="header"></header>
+          <script>
+            load("#header", "./templates/header.html");
+          </script>
+          <div class="container">
+            <div class="parent-screen">
+              <!-- Container Row -->
+              <div class="content__row">
+                <!-- <h2 class="content__title">Screen</h2> -->
+              </div>
+
+              <!-- Nháp -->
+              <div class="card-url">
+                <div class="card-url__inner">
+                  <div class="row row-cols-6">
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="url-input card-url__input"
+                        placeholder="URL Card 1"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="url-input card-url__input"
+                        placeholder="URL Card 2"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="url-input card-url__input"
+                        placeholder="URL Card 3"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="url-input card-url__input"
+                        placeholder="URL Card 4"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="url-input card-url__input"
+                        placeholder="URL Card 5"
+                      />
+                    </div>
+                    <div class="col">
+                      <input
+                        type="text"
+                        class="url-input card-url__input"
+                        placeholder="URL Card 6"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="card-url__buttons">
+                  <button
+                    id="save-urls"
+                    class="btn btn--medium btn--rounded btn--primary"
+                  >
+                    Lưu URL
+                  </button>
+                  <button
+                    id="clear-urls"
+                    class="btn btn--medium btn--rounded btn--danger"
+                  >
+                    Xóa URL
+                  </button>
+                </div>
+              </div>
+
+              <!-- Control -->
+              <div class="filter-show">
+                <div class="filter-show__list">
+                  <div class="filter-show__item">
+                    <button id="compare-button" class="filter-show__row">
+                      <img
+                        src="./assets/images/eye 1.svg"
+                        class="icon compare-button__icon-1"
+                        alt=""
+                      />
+                      <img
+                        src="./assets/images/hide.svg"
+                        class="icon compare-button__icon-2"
+                        style="display: none"
+                        alt=""
+                      />
+                      <span class="filter-show__text">Show Result</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vùng hiển thị thông báo so sánh -->
+              <div id="comparison-notification" class="card-window__noti">
+                <p class="card-window__copied">Đã Copy</p>
+                <ul id="comparison-list" class="card-window__noti-list">
+                  <!-- Các thông báo so sánh sẽ được thêm vào đây -->
+                </ul>
+                <button id="copy-comparison" class="card-window__copy-btn">
+                  <img src="./assets/images/copy.svg" alt="" />
+                </button>
+              </div>
+
+              <!-- Screen 3 col -->
+              <div class="row row-cols-3 gx-1 gy-3">
+                <!-- Card 1 -->
+                <div class="col">
+                  <div class="card-window" data-id="0">
+                    <div class="card-window__box-ctrl">
+                      <div class="card-window__heading">
+                        <div>
+                          <input
+                            type="text"
+                            class="card-window__input-minutes"
+                            placeholder="00"
+                            min="0"
+                          />
+                          <input
+                            type="text"
+                            class="card-window__input-seconds"
+                            placeholder="00"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+
+                        <!-- Input URL -->
+                        <input
+                          type="text"
+                          class="url-input"
+                          placeholder="Nhập URL"
+                        />
+                      </div>
+                      <div class="card-window__body">
+                        <div class="card-window__row">
+                          <div class="card-window__box card-window__box--left">
+                            <h3
+                              class="card-window__name"
+                              contenteditable="true"
+                              data-default="Title"
+                            >
+                              Title
+                            </h3>
+                          </div>
+                          <div
+                            class="card-window__box card-window__box--center"
+                          >
+                            <p class="timer-display">00:00</p>
+                          </div>
+                          <div class="card-window__box card-window__box--right">
+                            <button class="card-window__btn-close start-btn">
+                              <img
+                                src="./assets/images/play.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                            <button class="card-window__btn-close">
+                              <img
+                                src="./assets/images/pause.svg"
+                                alt=""
+                                class="icon card-window__btn-icon stop-btn"
+                              />
+                            </button>
+                            <button class="card-window__btn-close reset-btn">
+                              <img
+                                src="./assets/images/refresh.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-window__show"></div>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col">
+                  <div class="card-window" data-id="1">
+                    <div class="card-window__box-ctrl">
+                      <div class="card-window__heading">
+                        <div>
+                          <input
+                            type="text"
+                            class="card-window__input-minutes"
+                            placeholder="00"
+                            min="0"
+                          />
+                          <input
+                            type="text"
+                            class="card-window__input-seconds"
+                            placeholder="00"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <!-- Input URL -->
+                        <input
+                          type="text"
+                          class="url-input"
+                          placeholder="Nhập URL"
+                        />
+                      </div>
+                      <div class="card-window__body">
+                        <div class="card-window__row">
+                          <div class="card-window__box card-window__box--left">
+                            <h3
+                              class="card-window__name"
+                              contenteditable="true"
+                              data-default="Title"
+                            >
+                              Title
+                            </h3>
+                          </div>
+                          <div
+                            class="card-window__box card-window__box--center"
+                          >
+                            <p class="timer-display">00:00</p>
+                          </div>
+                          <div class="card-window__box card-window__box--right">
+                            <button class="card-window__btn-close start-btn">
+                              <img
+                                src="./assets/images/play.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                            <button class="card-window__btn-close">
+                              <img
+                                src="./assets/images/pause.svg"
+                                alt=""
+                                class="icon card-window__btn-icon stop-btn"
+                              />
+                            </button>
+                            <button class="card-window__btn-close reset-btn">
+                              <img
+                                src="./assets/images/refresh.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-window__show"></div>
+                  </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col">
+                  <div class="card-window" data-id="2">
+                    <div class="card-window__box-ctrl">
+                      <div class="card-window__heading">
+                        <div>
+                          <input
+                            type="text"
+                            class="card-window__input-minutes"
+                            placeholder="00"
+                            min="0"
+                          />
+                          <input
+                            type="text"
+                            class="card-window__input-seconds"
+                            placeholder="00"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <!-- Input URL -->
+                        <input
+                          type="text"
+                          class="url-input"
+                          placeholder="Nhập URL"
+                        />
+                      </div>
+                      <div class="card-window__body">
+                        <div class="card-window__row">
+                          <div class="card-window__box card-window__box--left">
+                            <h3
+                              class="card-window__name"
+                              contenteditable="true"
+                              data-default="Title"
+                            >
+                              Title
+                            </h3>
+                          </div>
+                          <div
+                            class="card-window__box card-window__box--center"
+                          >
+                            <p class="timer-display">00:00</p>
+                          </div>
+                          <div class="card-window__box card-window__box--right">
+                            <button class="card-window__btn-close start-btn">
+                              <img
+                                src="./assets/images/play.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                            <button class="card-window__btn-close">
+                              <img
+                                src="./assets/images/pause.svg"
+                                alt=""
+                                class="icon card-window__btn-icon stop-btn"
+                              />
+                            </button>
+                            <button class="card-window__btn-close reset-btn">
+                              <img
+                                src="./assets/images/refresh.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-window__show"></div>
+                  </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col">
+                  <div class="card-window" data-id="3">
+                    <div class="card-window__box-ctrl">
+                      <div class="card-window__heading">
+                        <div>
+                          <input
+                            type="text"
+                            class="card-window__input-minutes"
+                            placeholder="00"
+                            min="0"
+                          />
+                          <input
+                            type="text"
+                            class="card-window__input-seconds"
+                            placeholder="00"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <!-- Input URL -->
+                        <input
+                          type="text"
+                          class="url-input"
+                          placeholder="Nhập URL"
+                        />
+                      </div>
+                      <div class="card-window__body">
+                        <div class="card-window__row">
+                          <div class="card-window__box card-window__box--left">
+                            <h3
+                              class="card-window__name"
+                              contenteditable="true"
+                              data-default="Title"
+                            >
+                              Title
+                            </h3>
+                          </div>
+                          <div
+                            class="card-window__box card-window__box--center"
+                          >
+                            <p class="timer-display">00:00</p>
+                          </div>
+                          <div class="card-window__box card-window__box--right">
+                            <button class="card-window__btn-close start-btn">
+                              <img
+                                src="./assets/images/play.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                            <button class="card-window__btn-close">
+                              <img
+                                src="./assets/images/pause.svg"
+                                alt=""
+                                class="icon card-window__btn-icon stop-btn"
+                              />
+                            </button>
+                            <button class="card-window__btn-close reset-btn">
+                              <img
+                                src="./assets/images/refresh.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-window__show"></div>
+                  </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="col">
+                  <div class="card-window" data-id="4">
+                    <div class="card-window__box-ctrl">
+                      <div class="card-window__heading">
+                        <div>
+                          <input
+                            type="text"
+                            class="card-window__input-minutes"
+                            placeholder="00"
+                            min="0"
+                          />
+                          <input
+                            type="text"
+                            class="card-window__input-seconds"
+                            placeholder="00"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <!-- Input URL -->
+                        <input
+                          type="text"
+                          class="url-input"
+                          placeholder="Nhập URL"
+                        />
+                      </div>
+                      <div class="card-window__body">
+                        <div class="card-window__row">
+                          <div class="card-window__box card-window__box--left">
+                            <h3
+                              class="card-window__name"
+                              contenteditable="true"
+                              data-default="Title"
+                            >
+                              Title
+                            </h3>
+                          </div>
+                          <div
+                            class="card-window__box card-window__box--center"
+                          >
+                            <p class="timer-display">00:00</p>
+                          </div>
+                          <div class="card-window__box card-window__box--right">
+                            <button class="card-window__btn-close start-btn">
+                              <img
+                                src="./assets/images/play.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                            <button class="card-window__btn-close">
+                              <img
+                                src="./assets/images/pause.svg"
+                                alt=""
+                                class="icon card-window__btn-icon stop-btn"
+                              />
+                            </button>
+                            <button class="card-window__btn-close reset-btn">
+                              <img
+                                src="./assets/images/refresh.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-window__show"></div>
+                  </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="col">
+                  <div class="card-window" data-id="5">
+                    <div class="card-window__box-ctrl">
+                      <div class="card-window__heading">
+                        <div>
+                          <input
+                            type="text"
+                            class="card-window__input-minutes"
+                            placeholder="00"
+                            min="0"
+                          />
+                          <input
+                            type="text"
+                            class="card-window__input-seconds"
+                            placeholder="00"
+                            min="0"
+                            max="59"
+                          />
+                        </div>
+                        <!-- Input URL -->
+                        <input
+                          type="text"
+                          class="url-input"
+                          placeholder="Nhập URL"
+                        />
+                      </div>
+                      <div class="card-window__body">
+                        <div class="card-window__row">
+                          <div class="card-window__box card-window__box--left">
+                            <h3
+                              class="card-window__name"
+                              contenteditable="true"
+                              data-default="Title"
+                            >
+                              Title
+                            </h3>
+                          </div>
+                          <div
+                            class="card-window__box card-window__box--center"
+                          >
+                            <p class="timer-display">00:00</p>
+                          </div>
+                          <div class="card-window__box card-window__box--right">
+                            <button class="card-window__btn-close start-btn">
+                              <img
+                                src="./assets/images/play.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                            <button class="card-window__btn-close">
+                              <img
+                                src="./assets/images/pause.svg"
+                                alt=""
+                                class="icon card-window__btn-icon stop-btn"
+                              />
+                            </button>
+                            <button class="card-window__btn-close reset-btn">
+                              <img
+                                src="./assets/images/refresh.svg"
+                                alt=""
+                                class="icon card-window__btn-icon"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-window__show"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="./assets/js/menu.js"></script>
+    <script type="module" src="./assets/js/screen.js"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+html {
+    // *:
+    --bg-box: #fff;
+    --bg-box-ver2: #f5f6fa;
+    --border-box: #d5d5d5;
+    --box-shadow-modal: rgba(169, 169, 169, 0.37);
+    --filter-white: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+    --filter-black: invert(10%) sepia(5%) saturate(819%) hue-rotate(169deg) brightness(98%) contrast(92%);
+
+    // Body:
+    --bg-body: var(--bg-box-ver2);
+    --text-color: #202224;
+    --color-primary: #fa983a;
+    $color-table: #fa983a;
+    --bg-header: #fff;
+
+    // Chung:
+    --separator: var(--border-box);
+
+    // Sidebar:
+    --bg-sidebar: var(--bg-box);
+
+    // Icon:
+    .icon {
+        filter: var(--filter-black);
+    }
+
+    // Form:
+    --border-search: var(--border-box);
+
+    // Filter:
+    --bg-filter: #f9f9fb;
+    --border-filter: var(--border-box);
+
+    // Table:
+    --table-thead: var(--color-primary);
+    // --table-tr: color-mix(in srgb, var(--color-primary) 19%, transparent);
+    --table-tr: #{rgba($color-table, 0.19)};
+    --table-tr-even: var(--table-tr);
+    // --table-border: var(--border-filter);
+    --table-border: rgb(166, 166, 166);
+
+    // Dropdown:
+    --bg-dropdown: var(--bg-box);
+
+    // Card item:
+    --bg-card-item: var(--bg-filter);
+
+    // Bg Gradient:
+    --bg-gradient: var(--color-primary);
+
+    // Bg Copied:
+    --bg-copied: #ffa756;
+}

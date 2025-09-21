@@ -1,0 +1,12 @@
+.logo {
+    &__text {
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+
+        &--primary {
+            color: var(--color-primary);
+        }
+    }
+}
