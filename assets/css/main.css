@@ -2504,7 +2504,7 @@ html.dark {
   left: 0;
   right: 0;
   border-radius: 10px;
-  transform: translateY(236%);
+  transform: translateY(257%);
   background-image: linear-gradient(to top, #1dff5d 0%, #0dbe3f 100%);
   color: #000;
   z-index: 2;
@@ -2516,6 +2516,7 @@ html.dark {
   display: flex;
   justify-content: center;
   padding: 8px;
+  font-size: 1.4rem;
 }
 .card-window__noti-list li:not(:last-child) {
   border-right: 1px solid var(--color-primary);
